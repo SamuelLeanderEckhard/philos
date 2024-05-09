@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:10:51 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/08 21:17:08 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:51:10 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,38 +26,30 @@
 #include <sys/time.h>
 #include <limits.h>
 
-typedef struct	s_philos
+typedef struct	s_table
 {
-	int			id;
-	double		meals;
-	bool		full;
-	double		last_meal;
-	pthread_t	number_of_philosophers;
-	t_forks		*first_fork;
-	t_forks		*second_fork;
-	t_table		*table;
-}			t_philos;
+	size_t					id;
+	size_t					philo_nbr;
+	size_t					time_to_die;
+	size_t					time_to_eat;
+	size_t					time_to_sleep;
+	size_t					meals;
+	size_t					last_meal;
+	bool				full;
+	pthread_t			philos;
+	pthread_mutex_t		*left_fork;
+	pthread_mutex_t		*right_fork;
+}				t_table;
 
-typedef struct s_table
-{	
-	long		philo_nbr;
-	long		time_to_die;
-	long		time_to_eat;
-	long		time_to_sleep;
-	long		start;
-	bool		end;
-	long		limit_meals;
-	t_forks		*forks;
-	t_philos	*philos;
-}			t_table;
+typedef struct s_data
+{
+	t_table		*thinkers;
+	int			dead;
+	int			has_eaten;
+}			t_data;
 
 
-void    error_exit(const char *error);
-
-void	parse_input(t_table *table, char **argv);
-
-void	*safe_malloc(size_t size);
-void	safe_mutex_handle(t_philos *mutex, t_opcode opcode);
+void	input_check(char **argv);
 
 
 #endif
