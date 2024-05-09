@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:00:10 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/09 16:29:02 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/09 22:01:12 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,22 @@ void	input_check(char **argv)
 		i++;
 	}
 }
-void	create_mutex(t_table *table)
+int	create_mutex(t_data *data)
 {
-	int i;
-
-	i = 0;
-	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_nbr);
-	if (!table->forks)
-		error_exit("Malloc failed");
-	while (i < table->philo_nbr)
+	if (pthread_mutex_init(&data->print_lock, NULL) != 0)
+		return (error("mutex print_lock failed"));
+	if (pthread_mutex_init(&data->eaten_lock, NULL) != 0)
 	{
-		pthread_mutex_init(&table->forks[i], NULL);
-		i++;
+		pthread_mutex_destroy(&data->eaten_lock);
+		return (error("mutex eaten_lock failed"));
 	}
+	return (OK);
+}
+
+size_t	get_time(void)
+{
+	struct timeval time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }

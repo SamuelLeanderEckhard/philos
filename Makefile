@@ -6,7 +6,7 @@
 #    By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/20 17:10:12 by seckhard          #+#    #+#              #
-#    Updated: 2024/05/08 19:54:19 by seckhard         ###   ########.fr        #
+#    Updated: 2024/05/09 23:21:00 by seckhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NC=\e[0m
 NAME			= philo
 
 # Source Files
-SOURCES 		= main.c dinner_party.c error.c init.c utils.c
+SOURCES 		= main.c dinner_party.c dinner_police.c error.c init.c utils.c
 
 # Object Files
 OBJ_DIR			= o_files
@@ -30,27 +30,24 @@ OBJECTS 		= $(addprefix $(OBJ_DIR)/, $(SOURCES:.c=.o))
 
 # Compiler and CFlags
 CC 				= cc
-CFLAGS			= -Wall -Wextra -Werror -I$(INCLUDE_DIR)
-LDFLAGS			= 
+CFLAGS			= -Wall -Wextra -Werror
+INCLUDE_DIR		= include
+CFLAGS 			+= -I$(INCLUDE_DIR)
+
+# Default goal
+.DEFAULT_GOAL := all
 
 # Build Rules
 $(NAME): 		$(OBJECTS)
-				$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) $(LDFLAGS)
+				$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
 				@echo "$(GREEN)Project built successfully$(NC)"
-
 
 all:			$(NAME)
 
-
-%.o: %.c		$(INCLUDE)
-				@echo "$(GREEN)Compiling $<$(NC)"
-				$(CC) -c $(CFLAGS) $< -o $@
-
-.DEFAULT_GOAL := all
-
-$(OBJ_DIR)/%.o: %.c $(INCLUDE)
-	@mkdir -p $(OBJ_DIR)
-	$(CC) -c $(CFLAGS) $< -o $@
+$(OBJ_DIR)/%.o:	%.c
+				@mkdir -p $(OBJ_DIR)
+				$(CC) $(CFLAGS) -c $< -o $@
+				@echo "$(GREEN)Compiled $<$(NC)"
 
 clean:
 				rm -rf $(OBJ_DIR)
