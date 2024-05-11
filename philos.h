@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:10:51 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/11 20:46:22 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/11 21:25:21 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,27 +54,28 @@ typedef struct s_data
 	pthread_mutex_t		eaten_lock;
 }				t_data;
 
-// Utils
+// utils.c/utils2.c
 int		create_mutex(t_data *data);
 int		input_check(char **argv);
 size_t	get_time(void);
 int		print_event(t_table *thinker, char *event);
 size_t	ft_atoi(char *str);
+void	sleep_improved(size_t time);
 
-// Error
+// error.c
 void	error_exit(const char *error);
 void	destroy_mutex(pthread_mutex_t *mutex, int i);
 void	destroy_philos(t_data *data);
 void	destroy_forks(t_table *table, int i);
 
-// Init
+// init.c
 int		init_philos(t_data *data, char **argv);
 int		parse_input(t_table *table, char **argv);
 
-// Dinner party
+// dinner_party.c
 int		dinner_party(t_data *data); // TO DO
 
-// Dinner police
+// dinner_police.c
 void	*dinner_police(void *temp); // TO DO
 
 #endif

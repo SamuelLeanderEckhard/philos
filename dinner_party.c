@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:26:27 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/11 20:07:09 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/11 21:10:48 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,9 @@
 int	print_event(t_table *thinker, char *event)
 {
 	pthread_mutex_lock(thinker->print_lock);
-	if (*thinker->dead == 0)
-	{
-		printf("%ld %ld %d %s\n", get_time() - thinker->last_meal, thinker->id, *thinker->dead, event);
-		pthread_mutex_unlock(thinker->print_lock);
-		return (OK);
-	}
+	printf("%ld %ld %d %s\n", get_time() - thinker->last_meal, thinker->id, *thinker->dead, event);
 	pthread_mutex_unlock(thinker->print_lock);
-	return (FAILURE);
+	return (OK);
 }
 
 int check_death(t_data *data)

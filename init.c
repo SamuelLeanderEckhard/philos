@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 17:56:57 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/11 20:25:46 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/11 21:05:49 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	init_philos(t_data *data, char **argv)
 		return (FAILURE);
 	while (i < data->thinkers[0].philo_nbr)
 	{
-		parse_input(&data->thinkers[i], argv);
+		parse_input(&(data->thinkers[i]), argv);
 		data->thinkers[i].id = i;
 		data->thinkers[i].full = false;
 		data->thinkers[i].meals = 0;
@@ -52,12 +52,11 @@ int	init_philos(t_data *data, char **argv)
 		data->thinkers[i].print_lock = &data->print_lock;
 		data->thinkers[i].eaten_lock = &data->eaten_lock;
 		if (pthread_mutex_init(data->thinkers[i].eaten_lock, NULL) != 0)
-			return (error_exit("mutex eaten_lock failed"), FAILURE);
+			return (destroy_forks(data->thinkers, i), error_exit("mutex eaten_lock failed"), FAILURE);
 		if (i != 0)
 			data->thinkers[i].left_fork = data->thinkers[i - 1].right_fork;
-		else
-			data->thinkers[i].left_fork = data->thinkers[data->thinkers[0].philo_nbr - 1].right_fork;
 		i++;
 	}
+	data->thinkers[0].left_fork = data->thinkers[data->thinkers[0].philo_nbr - 1].right_fork;
 	return (OK);
 }

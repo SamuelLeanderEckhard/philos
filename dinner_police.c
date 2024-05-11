@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 22:08:19 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/11 20:19:17 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/11 21:26:07 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,6 @@ void	take_left_fork(t_table *thinker)
 		pthread_mutex_unlock(thinker->eaten_lock);
 }
 
-void	sleep_improved(size_t time)
-{
-	size_t	start;
-
-	start = get_time();
-	while (get_time() - start < time)
-		usleep(100);
-}
 void	eat_procedure(t_table *thinker)
 {
 	pthread_mutex_lock(thinker->eaten_lock);
@@ -93,10 +85,7 @@ void	*dinner_police(void *temp)
 
 	thinker = (t_table *)temp;
 	if (thinker->philo_nbr == 1)
-	{
-		print_event(thinker, "is eating");
-		usleep(thinker->time_to_die * 1000);
-	}
+		return (print_event(thinker, "has taken a fork"), sleep_improved(thinker->time_to_die * 1000), NULL);
 	pthread_mutex_lock(thinker->eaten_lock);
 	while (*thinker->dead == 0 && thinker->full == false)
 	{
