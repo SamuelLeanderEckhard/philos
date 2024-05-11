@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:10:51 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/11 19:38:29 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:46:22 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_data
 
 // Utils
 int		create_mutex(t_data *data);
-void	input_check(char **argv);
+int		input_check(char **argv);
 size_t	get_time(void);
 int		print_event(t_table *thinker, char *event);
 size_t	ft_atoi(char *str);

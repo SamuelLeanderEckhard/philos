@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:00:10 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/11 19:56:18 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:46:04 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	is_valid(char **argv)
 	return (OK);
 }
 
-void	input_check(char **argv)
+int	input_check(char **argv)
 {
 	int i;
 	int j;
@@ -44,9 +44,10 @@ void	input_check(char **argv)
 		while (argv[i][j] == ' ' || (argv[i][j] >= 9 && argv[i][j] <= 13))
 			j++;
 		if (is_valid(argv) == FAILURE)
-			error_exit("needs to be positive numeric.");
+			return (error_exit("needs to be positive numeric."), FAILURE);
 		i++;
 	}
+	return (OK);
 }
 
 int	create_mutex(t_data *data)
