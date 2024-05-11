@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:10:41 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/11 18:40:01 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:32:59 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ int	main(int argc, char **argv)
 		init_philos(&data, argv);
 		dinner_party(&data);
 	}
+	destroy_forks(thinkers, data.thinkers->philo_nbr);
 }

@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 17:56:57 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/11 19:39:38 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:25:46 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int	parse_input(t_table *table, char **argv)
 		table->meals = ft_atoi(argv[5]);
 	else
 		table->meals = -1;
-	// perhaps add overflow check here
+	if (table->philo_nbr == 9876543210 || table->time_to_die == 9876543210
+		|| table->time_to_eat == 9876543210 || table->time_to_sleep == 9876543210
+		|| table->meals == 9876543210)
+		return (error_exit("args are overflow integer"), FAILURE);
 	if (table->philo_nbr > 200)
 		return (FAILURE);
 	if (table->philo_nbr < 1)
@@ -48,6 +51,8 @@ int	init_philos(t_data *data, char **argv)
 		data->thinkers[i].dead = &data->dead;
 		data->thinkers[i].print_lock = &data->print_lock;
 		data->thinkers[i].eaten_lock = &data->eaten_lock;
+		if (pthread_mutex_init(data->thinkers[i].eaten_lock, NULL) != 0)
+			return (error_exit("mutex eaten_lock failed"), FAILURE);
 		if (i != 0)
 			data->thinkers[i].left_fork = data->thinkers[i - 1].right_fork;
 		else

@@ -6,7 +6,7 @@
 #    By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/20 17:10:12 by seckhard          #+#    #+#              #
-#    Updated: 2024/05/09 23:21:00 by seckhard         ###   ########.fr        #
+#    Updated: 2024/05/11 19:58:36 by seckhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ OBJECTS 		= $(addprefix $(OBJ_DIR)/, $(SOURCES:.c=.o))
 
 # Compiler and CFlags
 CC 				= cc
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -g
 INCLUDE_DIR		= include
 CFLAGS 			+= -I$(INCLUDE_DIR)
 

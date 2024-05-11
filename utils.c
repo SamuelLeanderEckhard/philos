@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:00:10 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/11 19:46:53 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/11 19:56:18 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	is_valid(char **argv)
 		j = 0;
 		while (argv[i][j])
 		{
-			if (argv[i][j] < 0 || argv[i][j] > 9)
+			if (argv[i][j] < '0' || argv[i][j] > '9')
 				return (FAILURE);
 			j++;
 		}
@@ -48,6 +48,7 @@ void	input_check(char **argv)
 		i++;
 	}
 }
+
 int	create_mutex(t_data *data)
 {
 	if (pthread_mutex_init(&data->print_lock, NULL) != 0)

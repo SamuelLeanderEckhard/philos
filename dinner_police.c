@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 22:08:19 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/11 19:30:49 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:19:17 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,22 +67,52 @@ void	eat_procedure(t_table *thinker)
 		pthread_mutex_unlock(thinker->eaten_lock);
 }
 
+void	eat(t_table *thinker)
+{
+	if (thinker->id % 2 == 0)
+	{
+		take_left_fork(thinker);
+		take_right_fork(thinker);
+		eat_procedure(thinker);
+		pthread_mutex_unlock(thinker->right_fork);
+		pthread_mutex_unlock(thinker->left_fork);
+	}
+	else
+	{
+		take_right_fork(thinker);
+		take_left_fork(thinker);
+		eat_procedure(thinker);
+		pthread_mutex_unlock(thinker->left_fork);
+		pthread_mutex_unlock(thinker->right_fork);
+	}
+}
 
 void	*dinner_police(void *temp)
 {
 	t_table	*thinker;
 
 	thinker = (t_table *)temp;
-	while (1)
+	if (thinker->philo_nbr == 1)
 	{
-		take_left_fork(thinker);
-		take_right_fork(thinker);
-		eat_procedure(thinker);
-		if (thinker->full == true)
-			break ;
-		print_event(thinker, "is sleeping");
-		sleep_improved(thinker->time_to_sleep);
-		print_event(thinker, "is thinking");
+		print_event(thinker, "is eating");
+		usleep(thinker->time_to_die * 1000);
 	}
-	return (OK);
+	pthread_mutex_lock(thinker->eaten_lock);
+	while (*thinker->dead == 0 && thinker->full == false)
+	{
+		pthread_mutex_unlock(thinker->eaten_lock);
+		eat(thinker);
+		sleep_improved(thinker->time_to_sleep);
+		pthread_mutex_lock(thinker->eaten_lock);
+		if (*thinker->dead == 0 && thinker->full == false)
+		{
+			pthread_mutex_unlock(thinker->eaten_lock);
+			print_event(thinker, "is thinking");
+			usleep(1000);
+		}
+		else
+			pthread_mutex_unlock(thinker->eaten_lock);
+	}
+	pthread_mutex_unlock(thinker->eaten_lock);
+	return (NULL);
 }
