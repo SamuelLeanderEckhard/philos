@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:10:51 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/09 23:14:59 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/11 19:38:29 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct	s_table
 	size_t				time_to_sleep;
 	size_t				meals;
 	size_t				last_meal;
+	size_t				start;
 	bool				full;
 	int					*dead;
 	pthread_t			philos;
@@ -57,6 +58,8 @@ typedef struct s_data
 int		create_mutex(t_data *data);
 void	input_check(char **argv);
 size_t	get_time(void);
+int		print_event(t_table *thinker, char *event);
+size_t	ft_atoi(char *str);
 
 // Error
 void	error_exit(const char *error);
@@ -72,6 +75,6 @@ int		parse_input(t_table *table, char **argv);
 int		dinner_party(t_data *data); // TO DO
 
 // Dinner police
-int 	dinner_police(t_table *thinker); // TO DO
+void	*dinner_police(void *temp); // TO DO
 
 #endif

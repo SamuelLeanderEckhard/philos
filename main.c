@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:10:41 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/09 23:05:15 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:40:01 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 
 	data.thinkers = thinkers;
 	if (argc != 5 && argc != 6)
-		error_exit("Wrong input, type: ./philo 5 800 200 200");
+		error_exit("Wrong input, type: ./philo 5 800 200 200 (optional: 3)");
 	else
 	{
 		input_check(argv);

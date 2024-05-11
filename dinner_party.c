@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:26:27 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/09 23:21:45 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/11 19:22:33 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int check_death(t_data *data)
 {
 	int i;
 
-	i = -1;
-	while (++i < data->thinkers[0].philo_nbr)
+	i = 0;
+	while (i < data->thinkers[0].philo_nbr)
 	{
 		pthread_mutex_lock(data->thinkers[i].eaten_lock);
 		if (get_time() - data->thinkers[i].last_meal > data->thinkers[i].time_to_die)
@@ -42,6 +42,7 @@ int check_death(t_data *data)
 			return (FAILURE);
 		}
 		pthread_mutex_unlock(data->thinkers[i].eaten_lock);
+		i++;
 	}
 	return (OK);
 }
@@ -50,23 +51,26 @@ int	dinner_party(t_data *data)
 {
 	int i;
 
-	i = -1;
+	i = 0;
 	while (++i < data->thinkers[0].philo_nbr)
 	{
-		data->thinkers[i].last_meal = get_time();
+		data->thinkers[i].start = get_time();
+		data->thinkers[i].last_meal = data->thinkers[i].start;
 		if (pthread_create(&data->thinkers[i].philos, NULL, &dinner_police, &data->thinkers[i]) != 0)
 		{
 			destroy_philos(data);
-			return (FAILURE);
+			return (error_exit("creating thread unsuccessful"), FAILURE);
 		}
+		i++;
 	}
 	while (1)
 	{
 		if (check_death(data) == FAILURE)
 			break ;
-		if (data->thinkers->meals != -1 && data->has_eaten == data->thinkers[0].philo_nbr)
-			break ;
 	}
-	destroy_philos(data);
+	i = -1;
+	while (++i < data->thinkers[0].philo_nbr)
+		pthread_join(data->thinkers[i].philos, NULL);
+	// destroy_philos(data);
 	return (OK);
 }

@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 17:56:57 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/09 22:43:50 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/11 19:39:38 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	init_philos(t_data *data, char **argv)
 	i = 0;
 	data->dead = 0;
 	data->has_eaten = 0;
-	if (parse_input(&data->thinkers, argv) == FAILURE)
+	if (parse_input(data->thinkers, argv) == FAILURE)
 		return (FAILURE);
 	while (i < data->thinkers[0].philo_nbr)
 	{
@@ -49,9 +49,9 @@ int	init_philos(t_data *data, char **argv)
 		data->thinkers[i].print_lock = &data->print_lock;
 		data->thinkers[i].eaten_lock = &data->eaten_lock;
 		if (i != 0)
-			data->thinkers[i].left_fork = &data->thinkers[i - 1].right_fork;
+			data->thinkers[i].left_fork = data->thinkers[i - 1].right_fork;
 		else
-			data->thinkers[i].left_fork = &data->thinkers[data->thinkers[0].philo_nbr - 1].right_fork;
+			data->thinkers[i].left_fork = data->thinkers[data->thinkers[0].philo_nbr - 1].right_fork;
 		i++;
 	}
 	return (OK);
