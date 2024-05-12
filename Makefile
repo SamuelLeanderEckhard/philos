@@ -6,7 +6,7 @@
 #    By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/20 17:10:12 by seckhard          #+#    #+#              #
-#    Updated: 2024/05/11 21:22:31 by seckhard         ###   ########.fr        #
+#    Updated: 2024/05/12 18:18:15 by seckhard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NC=\e[0m
 NAME			= philo
 
 # Source Files
-SOURCES 		= main.c dinner_party.c dinner_police.c error.c init.c utils.c utils2.c
+SOURCES 		= dinner_party.c dinner_police.c error.c init.c utils.c utils2.c main.c
 
 # Object Files
 OBJ_DIR			= o_files

@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 21:21:41 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/11 21:23:58 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/12 18:19:45 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,3 +22,8 @@ void	sleep_improved(size_t time)
 }
 
 // sleeping function
+void	sleeping(t_table *thinker)
+{
+	print_event(thinker, "is sleeping");
+	sleep_improved(thinker->time_to_sleep);
+}
