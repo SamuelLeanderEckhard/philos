@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:26:27 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/12 18:52:14 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:27:49 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,16 @@ int	dinner_party(t_data *data)
 {
 	int i;
 
-	i = 0;
+	i = -1;
 	while (++i < data->thinkers[0].philo_nbr)
 	{
 		data->thinkers[i].start = get_time();
 		data->thinkers[i].last_meal = data->thinkers[i].start;
 		if (pthread_create(&data->thinkers[i].philos, NULL, &dinner_police, &data->thinkers[i]) != 0)
 		{
-			destroy_philos(data, i);
+			destroy_philos(data->thinkers, i);
 			return (error_exit("creating thread unsuccessful"), FAILURE);
 		}
-		i++;
 	}
 	while (1)
 	{

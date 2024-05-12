@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:10:51 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/12 18:42:24 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:37:54 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	sleeping(t_table *thinker);
 // error.c
 void	error_exit(const char *error);
 void	destroy_mutex(pthread_mutex_t *mutex, int i);
-void	destroy_philos(t_data *data, int i);
+void	destroy_philos(t_table *table, int i);
 void	destroy_forks(t_table *table, int i);
 
 // init.c

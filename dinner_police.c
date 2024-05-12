@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 22:08:19 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/12 18:20:35 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:34:29 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	*dinner_police(void *temp)
 		}
 		else
 			pthread_mutex_unlock(thinker->eaten_lock);
+		pthread_mutex_lock(thinker->eaten_lock);
 	}
 	pthread_mutex_unlock(thinker->eaten_lock);
 	return (NULL);

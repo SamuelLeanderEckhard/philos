@@ -6,7 +6,7 @@
 /*   By: seckhard <seckhard@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 20:00:10 by seckhard          #+#    #+#             */
-/*   Updated: 2024/05/12 18:47:40 by seckhard         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:37:10 by seckhard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ void	destroy_forks(t_table *table, int i)
 	pthread_mutex_destroy(table->eaten_lock);
 }
 
-void	destroy_philos(t_data *data, int i)
+void	destroy_philos(t_table *table, int i)
 {
-	destroy_forks(data->thinkers, data->thinkers->philo_nbr);
+	destroy_forks(table, table->philo_nbr);
 	while (i >= 0)
 	{
-		pthread_join(data->thinkers[i].philos, NULL);
+		pthread_join(table->philos, NULL);
 		i--;
 	}
 }
